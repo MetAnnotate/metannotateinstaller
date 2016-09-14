@@ -24,6 +24,13 @@ Mac Install
 4. You might need to enter password of your machine
 
 
+Checking Status of Installation
+
+Before you run `bash start-server.sh`
+
+```bash
+bash check-status.sh
+```
 
 Start Server
 ---
