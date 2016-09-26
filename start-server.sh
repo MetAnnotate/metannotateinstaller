@@ -12,11 +12,13 @@ if [ ! $containerId ]; then
     exit 1
 fi
 echo "Starting..."
-sudo docker start $containerId &>>start-server.log
+sudo docker start $containerId 2>&1 >> start-server.log
 
-sudo docker exec -i $containerId bash < .start-server-docker.sh &>> start-server.log 
-ip=`sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $containerId`
-addr="http://${ip}:8080/"
+sudo docker exec -i $containerId bash < .start-server-docker.sh 2>&1 >> start-server.log 
+# since mac does not support connecting via ip, we go to exposed port
+# ip=`sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $containerId`
+# addr="http://${ip}:8080/"
+addr="http://127.0.0.1:12345" # see install.sh for hostport num
 
 echo "======= IMPORTANT ======"
 echo "Please open browser at ${addr} to see the server"
